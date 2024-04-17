@@ -1,0 +1,32 @@
+header {
+  margin-bottom: 50px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+label {
+  display: block;
+}
+
+ul.options {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.options > li {
+  font-weight: bold;
+}
+
+.phrase {
+  font-size: 22pt;
+}
+
+.close,
+button.close:hover,
+button.close:focus {
+  color: initial;
+  width: initial;
+  border: none;
+  background: initial;
+}

@@ -1,0 +1,7 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  min-width: 420px;
+  min-height: 463px;
+}

@@ -1,0 +1,94 @@
+/* You can add global styles to this file, and also import other style files */
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+    2. Remove default margin
+  */
+* {
+  margin: 0;
+}
+/*
+    Typographic tweaks!
+    3. Add accessible line-height
+    4. Improve text rendering
+  */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+    5. Improve media defaults
+  */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+    6. Remove built-in form typography styles
+  */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+    7. Avoid text overflows
+  */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+    8. Create a root stacking context
+  */
+#root,
+#__next {
+  isolation: isolate;
+}
+body {
+  font-family: sans-serif;
+  background-color: #e8eee9;
+}
+
+button {
+  display: block;
+  width: 200px;
+  border-radius: 5px;
+  border: solid 1px gray;
+  background: transparent;
+  padding: 10px;
+  margin: 10px;
+}
+
+button:hover,
+button:focus {
+  color: white;
+  background: black;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 0.75rem gray);
+  padding: 20px 75px 75px 100px;
+  border-radius: 25px;
+  background: white;
+}
