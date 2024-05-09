@@ -23,6 +23,12 @@ sign a new one.
 This project follows
 [Google's Open Source Community Guidelines](https://opensource.google/conduct/).
 
+### How to Contribute
+
+This project is not accepting pull requests at this time.
+
+Feel free to fork this repository if you wish to make changes.
+
 ### Code reviews
 
 All submissions, including submissions by project members, require review. We

@@ -1,7 +1,10 @@
-# Angular Language Learning Sample
-A developer sample demonstrating the use of [angular](http://angular.dev) and [Gemini API](http://ai.google.dev) to create dynamic quiz questions for languages supported by Gemini.
+# Angular language learning sample
+Developer sample written in Angular, demonstrating how to use system instruction and prompting
+in the Gemini API to collaboratively and iteratively create to create quiz questions in
+supported languages
 
 ## Setup & Getting Started
+This example uses [angular](http://angular.dev) and [Gemini API](http://ai.google.dev).
 
 ### Before you start
 Your system needs to be configured to run [angular](https://angular.dev/tools/cli/setup-local#dependencies).
