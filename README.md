@@ -37,3 +37,9 @@ To run this application, you can either
 1. Navigate to `http://localhost:4000/`
 
 That's it, have fun!
+
+### Making local changes
+1. Update the files.
+1. Stop the server
+1. Run `ng build`
+1. Run `npm start`

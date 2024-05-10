@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node dist/angular-language-learning-sample/server/server.mjs",
-    "start:client-only": "ng serve",
+    "start:client": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

@@ -23,14 +23,26 @@ import { LanguageQuizQuestion } from './language-quiz-question';
 export class DataService {
   private readonly DEFAULT_LANG = 'spanish';
 
-  async getQuestions(lang: string): Promise<LanguageQuizQuestion[]> {
+  async getQuestions(lang: string): Promise<QuizQueryResponse> {
     try {
       const data = await fetch(
-        `/api/ask-gemini?lang=${lang || this.DEFAULT_LANG}`,
+        `/api/ask-gemini?lang=${lang || this.DEFAULT_LANG}`
       ).then((response) => response.json());
-      return Promise.resolve(this.parseGeminiResponse(data.response));
+
+      console.log(data);
+
+      let questions = backupQuestions;
+
+      if (data.response) {
+        questions = this.parseGeminiResponse(data.response);
+      }
+
+      return Promise.resolve({
+        questions,
+        message: data.message,
+      });
     } catch (e) {
-      return Promise.resolve(backupQuestions);
+      return Promise.resolve({ questions: backupQuestions, message: '' });
     }
   }
 
@@ -44,6 +56,10 @@ export class DataService {
       return [];
     }
   }
+}
+interface QuizQueryResponse {
+  questions: LanguageQuizQuestion[];
+  message: string;
 }
 
 const backupQuestions = [

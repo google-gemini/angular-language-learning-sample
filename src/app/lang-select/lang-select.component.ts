@@ -14,7 +14,8 @@
  limitations under the License.
  */
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,12 +23,34 @@ import { Router } from '@angular/router';
   template: `
     <p>Select a language to practice</p>
     @for (lang of languageList; track lang) {
-      <button (click)="startQuiz(lang.name)">
-        {{ lang.name }}
-      </button>
+    <button (click)="startQuiz(lang.name)">
+      {{ lang.name }}
+    </button>
+    }
+    <hr />
+    <section class="custom-language">
+      <label>
+        <p>Enter a language</p>
+        <input [(ngModel)]="customLanguage" />
+      </label>
+      <button (click)="startQuiz(customLanguage())">Start</button>
+    </section>
+  `,
+  styles: `
+    .custom-language input {
+      padding: 10px;
+    }
+    .custom-language button {
+      display: inline;
+      width: initial;
+    }
+    hr {
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
   `,
   standalone: true,
+  imports: [FormsModule],
 })
 export class LangSelectComponent {
   private readonly router = inject(Router);
@@ -37,6 +60,7 @@ export class LangSelectComponent {
     { name: 'Korean' },
     { name: 'Hindi' },
   ];
+  protected readonly customLanguage = signal('');
 
   protected startQuiz(lang: string) {
     this.router.navigate(['quiz', lang]);

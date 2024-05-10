@@ -31,22 +31,37 @@ export function app(): express.Express {
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
-  const GEMINI_API_KEY =
-    process.env['API_KEY'] || 'INSERT_YOUR_API_KEY';
+
+  // Update this line to add your API_KEY if you are not using env variables
+  const GEMINI_API_KEY = process.env['API_KEY'] || '';
   const commonEngine = new CommonEngine();
 
   const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro-latest' });
+  const DEFAULT_LANG = 'spanish';
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
   // Define Express Rest API endpoints
   server.get('/api/ask-gemini', async (req, res) => {
+    if (!GEMINI_API_KEY) {
+      return res.status(500).send({
+        message: 'Please provide an API key for Gemini, using default Spanish translations.',
+      });
+    }
+
+    let language = DEFAULT_LANG;
+
+    if (req.query['lang']) {
+      language = req.query['lang'] as string;
+    } else {
+      language = 'spanish';
+    }
+
     try {
-      const lang = req.query['lang'] || 'spanish';
-      const prompt = `Your task is to generate 25 vocabulary words for learning ${lang}.
-      Provide the ${lang} translation, with 1 correct english translation and 2 incorrect english translations. 
+      const prompt = `Your task is to generate 25 vocabulary words for learning ${language}.
+      Provide the ${language} translation, with 1 correct english translation and 2 incorrect english translations. 
       
       input: generate 25 vocaulary words for learning spanish
       output: [{"phrase": "hola", "options"=["hello", "goodbye", "wait"], "answer": "hello"}, {"phrase": "adios", "options":["see you later", "good morning", "car"], "answer": "see you later"}, {"phrase": "gracias", "options":["thank you", "shoes", "comb"], "answer": "thank you"}]
@@ -56,9 +71,14 @@ export function app(): express.Express {
         tools: [],
       };
       const results = await model.generateContent(request);
-      return res.status(200).send({ response: results.response.text() });
+
+      return res
+        .status(200)
+        .send({ response: results.response.text(), usingDefault: false });
     } catch (e) {
-      return res.status(500).send();
+      return res.status(500).send({
+        message: `Unable to generate the practice questions for ${language}, using default Spanish translations.`,
+      });
     }
   });
 
@@ -67,7 +87,7 @@ export function app(): express.Express {
     '*.*',
     express.static(browserDistFolder, {
       maxAge: '1y',
-    }),
+    })
   );
 
   // All regular routes use the Angular engine

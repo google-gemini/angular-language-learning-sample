@@ -46,3 +46,7 @@ button.close:focus {
   border: none;
   background: initial;
 }
+
+.message {
+  max-width: 170px;
+}

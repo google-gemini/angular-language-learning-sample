@@ -115,8 +115,9 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     const language = this.language() || 'spanish';
-    this.dataService.getQuestions(language).then((questions) => {
-      this.languageQuizQuestionList.set(questions);
+    this.dataService.getQuestions(language).then((response) => {
+      this.languageQuizQuestionList.set(response.questions);
+      this.message.set(response.message);
       this.isLoading.set(false);
     });
   }
