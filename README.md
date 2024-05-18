@@ -4,10 +4,10 @@ in the Gemini API to collaboratively and iteratively create to create quiz quest
 supported languages
 
 ## Setup & Getting Started
-This example uses [angular](http://angular.dev) and [Gemini API](http://ai.google.dev).
+This example uses [Angular](http://angular.dev) and [Gemini API](http://ai.google.dev).
 
 ### Before you start
-Your system needs to be configured to run [angular](https://angular.dev/tools/cli/setup-local#dependencies).
+Your system needs to be configured to run [Angular](https://angular.dev/tools/cli/setup-local#dependencies).
 
 You need Gemini API key in order to run this demo. Here's how:
 1. Launch [Google AI Studio](https://aistudio.google.com/)
@@ -32,14 +32,16 @@ To run this application, you can either
 
 
 ### Starting the application
+> Note: Do not use `ng serve` as this sample uses server side rendering (SSR).
 1. Build the example with `ng build`
-1. Run the demo with `npm start`
-1. Navigate to `http://localhost:4000/`
+2. Run the demo with `npm start`
+3. Navigate to `http://localhost:4000/`
 
 That's it, have fun!
 
 ### Making local changes
+> Note: Do not use `ng serve` as this sample uses server side rendering (SSR).
 1. Update the files.
-1. Stop the server
-1. Run `ng build`
-1. Run `npm start`
+2. Stop the server
+3. Run `ng build`
+4. Run `npm start`

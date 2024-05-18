@@ -42,7 +42,13 @@ export class DataService {
         message: data.message,
       });
     } catch (e) {
-      return Promise.resolve({ questions: backupQuestions, message: '' });
+      console.error('Unexpected error fetching from server', e);
+      console.log('Did you use `ng serve` instead of `npm start`?');
+      return Promise.resolve({
+        questions: backupQuestions,
+        message: 'Using offline fallback language.' +
+          ' See JavaScript console for details.'
+      });
     }
   }
 
