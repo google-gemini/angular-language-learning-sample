@@ -27,6 +27,7 @@ export class DataService {
         `/api/ask-gemini?lang=${lang}`
       ).then((response) => {
         console.log(response);
+        console.log(response.body);
         return response.json();
       });
 
