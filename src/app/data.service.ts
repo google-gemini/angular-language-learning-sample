@@ -21,12 +21,10 @@ import { LanguageQuizQuestion } from './language-quiz-question';
   providedIn: 'root',
 })
 export class DataService {
-  private readonly DEFAULT_LANG = 'spanish';
-
   async getQuestions(lang: string): Promise<QuizQueryResponse> {
     try {
       const data = await fetch(
-        `/api/ask-gemini?lang=${lang || this.DEFAULT_LANG}`
+        `/api/ask-gemini?lang=${lang}`
       ).then((response) => response.json());
 
       console.log(data);

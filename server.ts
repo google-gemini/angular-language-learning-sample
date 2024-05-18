@@ -47,17 +47,11 @@ export function app(): express.Express {
   server.get('/api/ask-gemini', async (req, res) => {
     if (!GEMINI_API_KEY) {
       return res.status(500).send({
-        message: 'Please provide an API key for Gemini, using default Spanish translations.',
+        message: 'Please provide an API key for Gemini, using default {$DEFAULT_LANG} translations.',
       });
     }
 
-    let language = DEFAULT_LANG;
-
-    if (req.query['lang']) {
-      language = req.query['lang'] as string;
-    } else {
-      language = 'spanish';
-    }
+    let language = req.query['lang'] ? req.query['lang'] as string : DEFAULT_LANG;
 
     try {
       const prompt = `Your task is to generate 25 vocabulary words for learning ${language}.
@@ -77,7 +71,7 @@ export function app(): express.Express {
         .send({ response: results.response.text(), usingDefault: false });
     } catch (e) {
       return res.status(500).send({
-        message: `Unable to generate the practice questions for ${language}, using default Spanish translations.`,
+        message: `Unable to generate the practice questions for ${language}, using default {$DEFAULT_LANG} translations.`,
       });
     }
   });
