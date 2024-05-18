@@ -47,8 +47,7 @@ export class DataService {
   }
 
   parseGeminiResponse(response: string): LanguageQuizQuestion[] {
-    let output = response.replaceAll(/json/g, '').replaceAll(/```/g, '');
-    let dataObject = JSON.parse(output);
+    let dataObject = JSON.parse(response);
 
     if (Array.isArray(dataObject)) {
       return dataObject;
