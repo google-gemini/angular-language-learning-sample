@@ -25,9 +25,10 @@ export class DataService {
     try {
       const data = await fetch(
         `/api/ask-gemini?lang=${lang}`
-      ).then((response) => response.json());
-
-      console.log(data);
+      ).then((response) => {
+        console.log(response);
+        return response.json();
+      });
 
       let questions = backupQuestions;
 
