@@ -21,15 +21,15 @@ import { LanguageQuizQuestion } from './language-quiz-question';
   providedIn: 'root',
 })
 export class DataService {
-  private readonly DEFAULT_LANG = 'spanish';
-
   async getQuestions(lang: string): Promise<QuizQueryResponse> {
     try {
       const data = await fetch(
-        `/api/ask-gemini?lang=${lang || this.DEFAULT_LANG}`
-      ).then((response) => response.json());
-
-      console.log(data);
+        `/api/ask-gemini?lang=${lang}`
+      ).then((response) => {
+        console.log(response);
+        console.log(response.body);
+        return response.json();
+      });
 
       let questions = backupQuestions;
 
@@ -42,7 +42,13 @@ export class DataService {
         message: data.message,
       });
     } catch (e) {
-      return Promise.resolve({ questions: backupQuestions, message: '' });
+      console.error('Unexpected error fetching from server', e);
+      console.log('Did you use `ng serve` instead of `npm start`?');
+      return Promise.resolve({
+        questions: backupQuestions,
+        message: 'Using offline fallback language.' +
+          ' See JavaScript console for details.'
+      });
     }
   }
 

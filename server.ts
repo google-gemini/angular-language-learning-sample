@@ -48,24 +48,18 @@ export function app(): express.Express {
   server.get('/api/ask-gemini', async (req, res) => {
     if (!GEMINI_API_KEY) {
       return res.status(500).send({
-        message: 'Please provide an API key for Gemini, using default Spanish translations.',
+        message: 'Please provide an API key for Gemini, using default {$DEFAULT_LANG} translations.',
       });
     }
 
-    let language = DEFAULT_LANG;
-
-    if (req.query['lang']) {
-      language = req.query['lang'] as string;
-    } else {
-      language = 'spanish';
-    }
+    let language = req.query['lang'] ? req.query['lang'] as string : DEFAULT_LANG;
 
     try {
       const prompt = `Your task is to generate 25 vocabulary words for learning ${language}.
       Provide the ${language} translation, with 1 correct english translation and 2 incorrect english translations. 
       
       input: generate 25 vocaulary words for learning spanish
-      output: [{"phrase": "hola", "options"=["hello", "goodbye", "wait"], "answer": "hello"}, {"phrase": "adios", "options":["see you later", "good morning", "car"], "answer": "see you later"}, {"phrase": "gracias", "options":["thank you", "shoes", "comb"], "answer": "thank you"}]
+      output: [{"phrase": "hola", "options"=["goodbye", "wait", "hello"], "answer": "hello"}, {"phrase": "adios", "options":["good morning", "see you later", "car"], "answer": "see you later"}, {"phrase": "gracias", "options":["shoes", "thank you", "comb"], "answer": "thank you"}]
       `;
       const request: GenerateContentRequest = {
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
@@ -78,7 +72,7 @@ export function app(): express.Express {
         .send({ response: results.response.text(), usingDefault: false });
     } catch (e) {
       return res.status(500).send({
-        message: `Unable to generate the practice questions for ${language}, using default Spanish translations.`,
+        message: `Unable to generate the practice questions for ${language}, using default {$DEFAULT_LANG} translations.`,
       });
     }
   });
