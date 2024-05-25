@@ -38,6 +38,7 @@ export function app(): express.Express {
 
   const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro-latest' });
+  model.generationConfig.responseMimeType = 'application/json';
   const DEFAULT_LANG = 'spanish';
 
   server.set('view engine', 'html');
