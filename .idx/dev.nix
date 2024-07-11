@@ -5,7 +5,7 @@
   channel = "stable-23.11"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    pkgs.nodejs_20
+    pkgs.nodejs_18
     pkgs.nodePackages.firebase-tools
   ];
   # Sets environment variables in the workspace
@@ -21,6 +21,9 @@
         npm-install = "npm install --no-audit --prefer-offline";
       };
       # To run something each time the environment is rebuilt, use the `onStart` hook
+      onStart = {
+        build-dist = "npm run build";
+      };
     };
     # Enable previews and customize configuration
     previews = {
