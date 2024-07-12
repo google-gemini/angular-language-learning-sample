@@ -6,7 +6,6 @@
   # Use https://search.nixos.org/packages to find packages
   packages = [
     pkgs.nodejs_18
-    pkgs.nodePackages.firebase-tools
   ];
   # Sets environment variables in the workspace
   env = {};
@@ -18,11 +17,11 @@
     workspace = {
       # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
-        npm-install = "npm install --no-audit --prefer-offline";
+        npm-install = "npm install --no-audit --prefer-offline && npm run build";
       };
       # To run something each time the environment is rebuilt, use the `onStart` hook
       onStart = {
-        build-dist = "npm run build";
+        start-server = "npm start";
       };
     };
     # Enable previews and customize configuration
